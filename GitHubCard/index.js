@@ -81,14 +81,15 @@ const personCard = (singleObject) => {
 const entryPoint = document.querySelector('.cards');
 
 
-console.log('initial get', axios.get('https://api.github.com/users/oashtari'));
-let omidCard = axios
+// MY CARD 
+
+let getCard = axios
   .get('https://api.github.com/users/oashtari')
   .then(response => {
     const cardData = response.data;
-    console.log('cardData', cardData);
+    // console.log('cardData', cardData);
     const newCard = personCard(cardData);
-    console.log('newCard', newCard);
+    // console.log('newCard', newCard);
     entryPoint.appendChild(newCard);
   })
   .catch(error => {
@@ -98,10 +99,76 @@ let omidCard = axios
     console.log('the data was not returned', error);
   })
 
+// FOLLOWER CARDS 
 
-
-
+// console.log('test', axios.get('https://api.github.com/users/oashtari/followers'));
 const followersArray = [];
+
+
+axios
+  .get('https://api.github.com/users/oashtari/followers')
+  .then(response => {
+    const followerURL = response.data;
+    followerURL.forEach(item => {
+      // console.log(item.url);
+      axios.get(item.url)
+        .then(response => {
+          const cardData = response.data;
+          // console.log('cardData', cardData);
+          const newCard = personCard(cardData);
+          // console.log('newCard', newCard);
+          entryPoint.appendChild(newCard);
+        })
+    })
+  })
+
+
+// console.log('working array', followersArray);
+// console.log(followersArray[2]);
+
+// for (let i = 0; i < followersArray.length; i++) {
+//   console.log(followersArray[i])
+// }
+
+// followersArray.push(item.url);
+
+// followersArray.forEach(item => console.log(item));
+// followersArray.forEach(item => {
+//   console.log(item);
+//   let followerCard = axios
+//     .get(item)
+// .then(response => {
+//   const followerData = response.data;
+//   // console.log('followerData', followerData);
+//   const newFollowerCard = personCard(followerData);
+//   // console.log('newCard', newCard);
+//   entryPoint.appendChild(newFollowerCard);
+// })
+// .catch(error => {
+//   if (error.includes("Network Error")) {
+//     console.log('network error')
+//   }
+//   console.log('the data was not returned', error);
+// })
+// })
+
+// const eachFollower = response.data;
+// eachFollower.forEach(followerData => {
+//   const newFollowerCard = personCard(followerData);
+//   entryPoint.appendChild(newFollowerCard);
+// });
+// return 'hello world'
+// })
+// .catch(error => {
+//   if (error.includes("Network Error")) {
+//     console.log('network error')
+//   }
+//   console.log('the data was not returned', error);
+// })
+
+// console.log('followers', followersCards);
+
+
 
 
 /* Step 3: Create a function that accepts a single object as its only argument,
