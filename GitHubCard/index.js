@@ -3,33 +3,8 @@
             https://api.github.com/users/<your name>
   */
 
-console.log(axios.get('https://api.github.com/users/oashtari'));
 
-// console.log(axios.get("https://dog.ceo/api/breed/mastiff/images/random/12"));
 
-//  const entryPoint = document.querySelector('.entry');
-//  console.log('promise', axios
-//    .get("https://dog.ceo/api/breed/mastiff/images/random/12"));
-//  axios
-//    .get("https://dog.ceo/api/breed/mastiff/images/random/12")
-//    .then(response => {
-//    console.log('res', response);
-//      const imgArr = response.data.message;
-//      imgArr.forEach(imgUrl => {
-//        const newDog = dogCard(imgUrl);
-//        entryPoint.appendChild(newDog);
-//      });
-//      return 'hello world'
-//    })
-//    .then(value => {
-//      console.log('value', value);
-//    })
-//    .catch(error => {
-//      if (error.includes("Network Error") ) {
-//        console.log('network error')
-//      }
-//      console.log('the data was not returned', error);
-//    });
 
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -53,7 +28,81 @@ console.log(axios.get('https://api.github.com/users/oashtari'));
           user, and adding that card to the DOM.
 */
 
+
+const personCard = (singleObject) => {
+
+  // CREATE ELEMENTS 
+  const card = document.createElement('div');
+  const image = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const link = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  // ADD CLASSES 
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
+
+
+  // ADD CONTENT 
+
+  image.src = `${singleObject.avatar_url}`;
+  name.textContent = `${singleObject.name}`;
+  userName.textContent = `${singleObject.login}`;
+  location.textContent = `${singleObject.location}`;
+  profile.textContent = `${singleObject.html_url}`;
+  followers.textContent = `${singleObject.followers}`;
+  following.textContent = `${singleObject.following}`;
+  bio.textContent = `${singleObject.bio}`;
+
+  // APPEND CHILDREN 
+  card.appendChild(image);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(link);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  return card;
+}
+
+const entryPoint = document.querySelector('.cards');
+
+
+console.log('initial get', axios.get('https://api.github.com/users/oashtari'));
+let omidCard = axios
+  .get('https://api.github.com/users/oashtari')
+  .then(response => {
+    const cardData = response.data;
+    console.log('cardData', cardData);
+    const newCard = personCard(cardData);
+    console.log('newCard', newCard);
+    entryPoint.appendChild(newCard);
+  })
+  .catch(error => {
+    if (error.includes("Network Error")) {
+      console.log('network error')
+    }
+    console.log('the data was not returned', error);
+  })
+
+
+
+
 const followersArray = [];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
