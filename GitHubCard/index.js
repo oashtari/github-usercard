@@ -1,17 +1,46 @@
 /* Step 1: using axios, send a GET request to the following URL 
-           (replacing the palceholder with your Github name):
-           https://api.github.com/users/<your name>
-*/
+            (replacing the palceholder with your Github name):
+            https://api.github.com/users/<your name>
+  */
+
+console.log(axios.get('https://api.github.com/users/oashtari'));
+
+// console.log(axios.get("https://dog.ceo/api/breed/mastiff/images/random/12"));
+
+//  const entryPoint = document.querySelector('.entry');
+//  console.log('promise', axios
+//    .get("https://dog.ceo/api/breed/mastiff/images/random/12"));
+//  axios
+//    .get("https://dog.ceo/api/breed/mastiff/images/random/12")
+//    .then(response => {
+//    console.log('res', response);
+//      const imgArr = response.data.message;
+//      imgArr.forEach(imgUrl => {
+//        const newDog = dogCard(imgUrl);
+//        entryPoint.appendChild(newDog);
+//      });
+//      return 'hello world'
+//    })
+//    .then(value => {
+//      console.log('value', value);
+//    })
+//    .catch(error => {
+//      if (error.includes("Network Error") ) {
+//        console.log('network error')
+//      }
+//      console.log('the data was not returned', error);
+//    });
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
-   github info! You will need to understand the structure of this 
-   data in order to use it to build your component function 
+  github info! You will need to understand the structure of this 
+  data in order to use it to build your component function 
 
-   Skip to Step 3.
+  Skip to Step 3.
 */
 
 /* Step 4: Pass the data received from Github into your function, 
-           create a new component and add it to the DOM as a child of .cards
+            create a new component and add it to the DOM as a child of .cards
 */
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
